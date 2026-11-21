@@ -30,9 +30,11 @@ The **Microsoft Arc Mouse** is an iconic portable mouse with an ultra-thin desig
 
 ### 🖐️ Gesture Engine (Touch Strip + Button Chording)
 Because the Microsoft Arc Mouse transmits touch interactions as discrete HID wheel and button events, OpenArcMouse introduces an intuitive button-chording gesture system:
-- **Desktop / Space Switching (`Ctrl + Left/Right`):** Hold **Right Click (Button 2)** and swipe sideways across the capacitive strip to fluidly slide between virtual desktops.
-- **Mission Control (`Ctrl + Up`):** Hold **Right Click** and swipe upward on the strip to open Mission Control.
-- **Apps / App Exposé (`Ctrl + Down`):** Hold **Right Click** and swipe downward to view application windows.
+> **💡 Two-Finger Chording Technique:** Hold down **Button 2 (Right-Click)** with one finger (such as your middle finger), then swipe across the capacitive touch strip with another finger (such as your index finger). Attempting to hold the physical click switch down and swipe simultaneously with a single finger does not glide smoothly and will not register gestures cleanly.
+
+- **Desktop / Space Switching (`Ctrl + Left/Right`):** Hold Button 2 with one finger and swipe sideways across the capacitive strip with another to fluidly slide between virtual desktops.
+- **Mission Control (`Ctrl + Up`):** Hold Button 2 with one finger and swipe upward on the strip to open Mission Control.
+- **Apps / App Exposé (`Ctrl + Down`):** Hold Button 2 with one finger and swipe downward to view application windows.
 - **Context-Menu Suppression:** When a gesture is recognized while holding Right Click, the secondary context menu is automatically suppressed when you release the button. If no swipe was performed, a standard right-click is cleanly dispatched.
 
 ### 👆 Three-Finger Click & Double-Click

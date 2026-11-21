@@ -54,7 +54,7 @@ public struct SettingsWindowView: View {
     private var gesturesTab: some View {
         Form {
             Section {
-                Text("Hold Button 2 (Secondary / Right-Click) and swipe on the capacitive touch strip to trigger gestures.")
+                Text("Hold Button 2 (Secondary / Right-Click) down with one finger, then swipe along the capacitive touch strip with another finger (e.g., hold Button 2 with your middle finger and swipe the strip with your index finger). Performing both actions with a single finger does not glide smoothly.")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .fixedSize(horizontal: false, vertical: true)

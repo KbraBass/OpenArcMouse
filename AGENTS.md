@@ -75,6 +75,7 @@ OpenArcMouse is a native macOS background driver and gesture engine specifically
   - Usage `0x0001`: Primary Click (Left)
   - Usage `0x0002`: Secondary Click (Right)
   - Usage `0x0003`: Capacitive surface multi-finger press (Middle Click)
+- **Two-Finger Gesture Mechanics:** Gestures rely on button chording: holding physical Button 2 (Secondary Click) down with one finger (e.g. middle finger) and swiping the capacitive touch strip with another finger (e.g. index finger). Doing both with a single finger fails because friction and mechanical pressure prevent smooth gliding across the capacitive surface.
 
 ---
 

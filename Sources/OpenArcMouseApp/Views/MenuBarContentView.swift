@@ -41,10 +41,15 @@ public struct MenuBarContentView: View {
             Divider()
 
             // Gestures
-            Text("Gestures (Hold Button 2 + Swipe)")
-                .font(.caption)
-                .foregroundColor(.secondary)
-                .padding(.horizontal, 10)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Gestures (Button 2 + Swipe)")
+                    .font(.caption)
+                    .bold()
+                Text("Hold Button 2 with one finger, swipe strip with another")
+                    .font(.system(size: 10))
+                    .foregroundColor(.secondary)
+            }
+            .padding(.horizontal, 10)
 
             Toggle("Side Swipe → Desktops", isOn: $config.horizontalFlickEnabled)
                 .padding(.horizontal, 10)
