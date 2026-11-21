@@ -5,11 +5,11 @@ public struct AboutView: View {
     @State private var showingLicenseModal = false
 
     private var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.1.2"
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.1.3"
     }
 
     private var buildNumber: String {
-        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "3"
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "4"
     }
 
     private let mitLicenseText = """
@@ -118,11 +118,17 @@ public struct AboutView: View {
             // Action Buttons
             HStack(spacing: 12) {
                 Button(action: {
+                    UpdateChecker.shared.checkForUpdates(isUserInitiated: true)
+                }) {
+                    Label("Check for Updates...", systemImage: "arrow.triangle.2.circlepath")
+                }
+
+                Button(action: {
                     if let url = URL(string: "https://github.com/KbraBass/OpenArcMouse") {
                         NSWorkspace.shared.open(url)
                     }
                 }) {
-                    Label("GitHub Repository", systemImage: "link")
+                    Label("GitHub", systemImage: "link")
                 }
 
                 Button(action: {

@@ -17,6 +17,37 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Hide dock icon so it runs purely as a menu bar extra
         NSApp.setActivationPolicy(.accessory)
+
+        // Handle first-launch update prompt or automated launch check
+        if !ArcConfig.shared.hasPromptedForUpdates {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
+                self?.promptForUpdatePreference()
+            }
+        } else if ArcConfig.shared.checkForUpdatesOnLaunch {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                UpdateChecker.shared.checkForUpdates(isUserInitiated: false)
+            }
+        }
+    }
+
+    private func promptForUpdatePreference() {
+        let alert = NSAlert()
+        alert.messageText = "Check for Updates Automatically?"
+        alert.informativeText = "OpenArcMouse can automatically check for updates on launch to keep your driver and gestures up to date.\n\nYou can change this preference anytime in Settings."
+        alert.addButton(withTitle: "Check Automatically")
+        alert.addButton(withTitle: "Don't Check")
+        alert.alertStyle = .informational
+
+        NSApp.activate(ignoringOtherApps: true)
+        let response = alert.runModal()
+        let enableUpdates = (response == .alertFirstButtonReturn)
+
+        ArcConfig.shared.checkForUpdatesOnLaunch = enableUpdates
+        ArcConfig.shared.hasPromptedForUpdates = true
+
+        if enableUpdates {
+            UpdateChecker.shared.checkForUpdates(isUserInitiated: false)
+        }
     }
 
     func showAboutWindow() {

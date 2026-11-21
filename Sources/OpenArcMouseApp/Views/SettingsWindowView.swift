@@ -182,6 +182,22 @@ public struct SettingsWindowView: View {
                 Text("System Startup")
                     .font(.headline)
             }
+
+            Section {
+                Toggle("Check for Updates on Launch", isOn: $config.checkForUpdatesOnLaunch)
+                Text("Automatically checks GitHub Releases for new versions of OpenArcMouse when the app starts.")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
+                Button(action: {
+                    UpdateChecker.shared.checkForUpdates(isUserInitiated: true)
+                }) {
+                    Label("Check for Updates Now...", systemImage: "arrow.triangle.2.circlepath")
+                }
+            } header: {
+                Text("Updates")
+                    .font(.headline)
+            }
         }
         .formStyle(.grouped)
     }

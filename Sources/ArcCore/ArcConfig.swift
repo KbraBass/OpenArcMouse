@@ -22,7 +22,17 @@ public final class ArcConfig: ObservableObject {
     private let kThreeFingerTapAction = "arc_three_finger_tap_action"
     private let kThreeFingerDoubleTapAction = "arc_three_finger_double_tap_action"
     private let kLaunchAtLogin = "arc_launch_at_login"
+    private let kCheckForUpdatesOnLaunch = "arc_check_for_updates_on_launch"
+    private let kHasPromptedForUpdates = "arc_has_prompted_for_updates"
     private let kSeizureTestModeEnabled = "arc_seizure_test_mode_enabled"
+
+    @Published public var checkForUpdatesOnLaunch: Bool {
+        didSet { defaults.set(checkForUpdatesOnLaunch, forKey: kCheckForUpdatesOnLaunch) }
+    }
+
+    @Published public var hasPromptedForUpdates: Bool {
+        didSet { defaults.set(hasPromptedForUpdates, forKey: kHasPromptedForUpdates) }
+    }
 
     @Published public var isSeizureTestModeEnabled: Bool {
         didSet { defaults.set(isSeizureTestModeEnabled, forKey: kSeizureTestModeEnabled) }
@@ -132,6 +142,8 @@ public final class ArcConfig: ObservableObject {
         self.threeFingerDoubleTapAction = GestureAction(rawValue: dTapRaw) ?? .missionControl
 
         self.launchAtLogin = defaults.object(forKey: kLaunchAtLogin) as? Bool ?? true
+        self.checkForUpdatesOnLaunch = defaults.object(forKey: kCheckForUpdatesOnLaunch) as? Bool ?? true
+        self.hasPromptedForUpdates = defaults.object(forKey: kHasPromptedForUpdates) as? Bool ?? false
         self.isSeizureTestModeEnabled = defaults.object(forKey: kSeizureTestModeEnabled) as? Bool ?? false
     }
 }

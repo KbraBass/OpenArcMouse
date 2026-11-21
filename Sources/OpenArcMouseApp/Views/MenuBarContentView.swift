@@ -111,6 +111,18 @@ public struct MenuBarContentView: View {
 
             Divider()
 
+            Toggle("Check for Updates on Launch", isOn: $config.checkForUpdatesOnLaunch)
+                .padding(.horizontal, 10)
+
+            Button(action: {
+                UpdateChecker.shared.checkForUpdates(isUserInitiated: true)
+            }) {
+                Label("Check for Updates...", systemImage: "arrow.triangle.2.circlepath")
+            }
+            .padding(.horizontal, 10)
+
+            Divider()
+
             Button("Quit OpenArcMouse") {
                 NSApplication.shared.terminate(nil)
             }

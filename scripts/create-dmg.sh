@@ -4,7 +4,7 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 cd "$DIR"
 
-VERSION="${VERSION:-0.1.2}"
+VERSION="${VERSION:-0.1.3}"
 BUILD_DIR="$DIR/build"
 APP_PATH="$BUILD_DIR/OpenArcMouse.app"
 OUTPUT_DMG="$BUILD_DIR/OpenArcMouse-v${VERSION}.dmg"
@@ -38,7 +38,7 @@ if ! command -v create-dmg &> /dev/null; then
     fi
 fi
 
-# 4. Prepare staging directory with app and Gatekeeper instructions
+# 4. Prepare clean staging directory
 STAGING_DIR="$BUILD_DIR/dmg-staging"
 rm -rf "$STAGING_DIR"
 mkdir -p "$STAGING_DIR"
@@ -49,6 +49,7 @@ fi
 
 # 5. Remove previous DMG if it exists
 rm -f "$OUTPUT_DMG"
+rm -f "$BUILD_DIR/OpenArcMouse.dmg"
 
 echo "Creating styled DMG at $OUTPUT_DMG..."
 create-dmg \
@@ -56,12 +57,14 @@ create-dmg \
   --volicon "Resources/AppIcon.icns" \
   --background "Resources/dmg-background.png" \
   --window-pos 200 120 \
-  --window-size 660 400 \
-  --icon-size 128 \
-  --icon "OpenArcMouse.app" 180 175 \
+  --window-size 660 620 \
+  --icon-size 80 \
+  --text-size 12 \
+  --icon "OpenArcMouse.app" 170 145 \
   --hide-extension "OpenArcMouse.app" \
-  --app-drop-link 480 175 \
-  --icon "PLEASE READ - First Launch.txt" 330 295 \
+  --app-drop-link 490 145 \
+  --icon "PLEASE READ - First Launch.txt" 330 265 \
+  --hide-extension "PLEASE READ - First Launch.txt" \
   --no-internet-enable \
   "$OUTPUT_DMG" \
   "$STAGING_DIR"

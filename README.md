@@ -54,7 +54,7 @@ Because the Microsoft Arc Mouse transmits touch interactions as discrete HID whe
 
 ### Option 1: Download Pre-built Release (Recommended)
 1. Head over to [**Releases**](https://github.com/KbraBass/OpenArcMouse/releases).
-2. Download the latest **`OpenArcMouse-v0.1.2.dmg`**.
+2. Download the latest **`OpenArcMouse-v0.1.3.dmg`**.
 3. Open the DMG and drag **OpenArcMouse** into your **Applications** folder.
 
 > [!IMPORTANT]

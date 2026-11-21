@@ -4,8 +4,8 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 cd "$DIR"
 
-VERSION="${VERSION:-0.1.2}"
-BUILD_NUMBER="${BUILD_NUMBER:-3}"
+VERSION="${VERSION:-0.1.3}"
+BUILD_NUMBER="${BUILD_NUMBER:-4}"
 
 echo "=== Building OpenArcMouse v${VERSION} (Release) ==="
 swift build -c release
