@@ -5,11 +5,11 @@ public struct AboutView: View {
     @State private var showingLicenseModal = false
 
     private var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.1.1"
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0.1.2"
     }
 
     private var buildNumber: String {
-        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "2"
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "3"
     }
 
     private let mitLicenseText = """

@@ -54,9 +54,18 @@ Because the Microsoft Arc Mouse transmits touch interactions as discrete HID whe
 
 ### Option 1: Download Pre-built Release (Recommended)
 1. Head over to [**Releases**](https://github.com/KbraBass/OpenArcMouse/releases).
-2. Download the latest `OpenArcMouse-v0.1.1.zip`.
-3. Unzip and drag `OpenArcMouse.app` to your `/Applications` folder.
-4. Launch `OpenArcMouse.app`.
+2. Download the latest **`OpenArcMouse-v0.1.2.dmg`**.
+3. Open the DMG and drag **OpenArcMouse** into your **Applications** folder.
+
+> [!IMPORTANT]
+> **First-Launch Gatekeeper Warning:**  
+> Because OpenArcMouse is a free open-source project distributed outside the Mac App Store without a paid Apple Developer certificate, macOS Gatekeeper may display a prompt saying the app is damaged or from an unidentified developer.
+>
+> Simply run this command in **Terminal** to clear the quarantine flag:
+> ```bash
+> xattr -cr /Applications/OpenArcMouse.app
+> ```
+> *Alternative:* Right-click (Control-click) `OpenArcMouse.app` in `/Applications`, choose **Open**, and click **Open** in the confirmation dialog.
 
 ### Option 2: Build from Source
 Ensure you have Xcode Command Line Tools installed (`xcode-select --install`):
@@ -65,12 +74,11 @@ Ensure you have Xcode Command Line Tools installed (`xcode-select --install`):
 git clone https://github.com/KbraBass/OpenArcMouse.git
 cd OpenArcMouse
 
-# Build release bundle
-./scripts/build-app.sh
+# Build release bundle & DMG package
+./scripts/create-dmg.sh
 
-# Install to /Applications
-cp -R build/OpenArcMouse.app /Applications/
-open /Applications/OpenArcMouse.app
+# Open created DMG
+open build/OpenArcMouse.dmg
 ```
 
 ---

@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (e.g. 0.1.1)'
+        description: 'Release version (e.g. 0.1.2)'
         required: true
-        default: '0.1.1'
+        default: '0.1.2'
 
 permissions:
   contents: write
@@ -37,6 +37,9 @@ jobs:
           echo "TAG_NAME=v${CLEAN_VER}" >> $GITHUB_ENV
           echo "Resolved version: ${CLEAN_VER} (Tag: v${CLEAN_VER})"
 
+      - name: Install Packaging Dependencies
+        run: brew install create-dmg
+
       - name: Build and Package OpenArcMouse.app
         run: |
           VERSION="${{ env.RELEASE_VERSION }}" ./scripts/build-app.sh
@@ -45,6 +48,14 @@ jobs:
         run: |
           codesign -vvv --deep --strict build/OpenArcMouse.app
           plutil -p build/OpenArcMouse.app/Contents/Info.plist
+
+      - name: Create Styled DMG Package
+        run: |
+          VERSION="${{ env.RELEASE_VERSION }}" ./scripts/create-dmg.sh
+          DMG_NAME="OpenArcMouse-v${{ env.RELEASE_VERSION }}.dmg"
+          cp "build/${DMG_NAME}" "${DMG_NAME}"
+          shasum -a 256 "${DMG_NAME}" > "${DMG_NAME}.sha256"
+          ls -lh "${DMG_NAME}"*
 
       - name: Create Release Archive (.zip)
         run: |
@@ -62,5 +73,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
+            OpenArcMouse-v${{ env.RELEASE_VERSION }}.dmg
+            OpenArcMouse-v${{ env.RELEASE_VERSION }}.dmg.sha256
             OpenArcMouse-v${{ env.RELEASE_VERSION }}.zip
             OpenArcMouse-v${{ env.RELEASE_VERSION }}.zip.sha256

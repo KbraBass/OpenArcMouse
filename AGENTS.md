@@ -21,9 +21,13 @@ OpenArcMouse is a native macOS background driver and gesture engine specifically
 ├── Package.swift               # SPM package definition (targets, dependencies, tools)
 ├── Resources/
 │   ├── AppIcon.icns            # macOS app bundle icon
-│   └── AppIcon.png             # Raw raster icon
+│   ├── AppIcon.png             # Raw raster icon
+│   ├── dmg-background.png      # Styled DMG window background
+│   └── PLEASE READ - First Launch.txt # Gatekeeper quarantine removal guide
 ├── scripts/
-│   └── build-app.sh            # Release build & app bundle packaging script
+│   ├── build-app.sh            # Release build & app bundle packaging script
+│   ├── create-dmg.sh           # Styled drag-and-drop DMG packaging script
+│   └── generate-dmg-background.swift # Generates washed-out DMG background image
 ├── Sources/
 │   ├── ArcCore/                # Foundation data structures, configuration & models
 │   │   ├── ArcConfig.swift     # UserDefaults-persisted reactive configuration
@@ -152,6 +156,15 @@ swift build -c release
 
 # Package signed .app bundle
 ./scripts/build-app.sh
+
+# Package styled .dmg installer (with drag-and-drop link & background)
+./scripts/create-dmg.sh
+```
+
+### Gatekeeper Quarantine Removal
+For ad-hoc builds downloaded via browser, clear quarantine using:
+```bash
+xattr -cr /Applications/OpenArcMouse.app
 ```
 
 ### Run App

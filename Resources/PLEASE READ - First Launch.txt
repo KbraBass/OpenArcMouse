@@ -1,0 +1,43 @@
+===========================================================
+  OpenArcMouse — First Launch & Gatekeeper Notice
+===========================================================
+
+OpenArcMouse is a free and open-source project. Because it is
+distributed directly via GitHub rather than the Apple App Store,
+macOS Gatekeeper may display a security warning on first launch:
+
+  "OpenArcMouse is damaged and can’t be opened.
+   You should move it to the Trash."
+   — or —
+  "macOS cannot verify the developer of OpenArcMouse."
+
+-----------------------------------------------------------
+HOW TO OPEN (ONE-LINE TERMINAL FIX):
+-----------------------------------------------------------
+
+1. Drag OpenArcMouse.app into your Applications folder.
+2. Open Terminal.app (Cmd + Space -> type "Terminal" -> Enter).
+3. Copy and paste this command and press Enter:
+
+   xattr -cr /Applications/OpenArcMouse.app
+
+4. Open OpenArcMouse from your Applications folder!
+
+-----------------------------------------------------------
+ALTERNATIVE GUI METHOD:
+-----------------------------------------------------------
+1. Open your /Applications folder in Finder.
+2. Right-click (or Control-click) OpenArcMouse.app.
+3. Select "Open" from the context menu.
+4. Click "Open" in the dialog that appears.
+(You only need to do this once on first launch.)
+
+-----------------------------------------------------------
+REQUIRED PERMISSIONS:
+-----------------------------------------------------------
+On first launch, click the OpenArcMouse icon in your menu bar:
+- Grant Accessibility (for gesture & scroll interception)
+- Grant Input Monitoring (to read Microsoft Arc Mouse hardware)
+
+Repository: https://github.com/KbraBass/OpenArcMouse
+License: MIT License
