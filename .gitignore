@@ -1,0 +1,24 @@
+# Xcode / Swift Package Manager
+.build/
+.swiftpm/
+DerivedData/
+
+# App bundles & build artifacts
+build/
+*.app
+*.dSYM
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# User specific
+xcuserdata/
+*.xcuserstate
+
+# Temporary files & logs
+*.log

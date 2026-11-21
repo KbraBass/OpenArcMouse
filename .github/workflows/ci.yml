@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Validate App
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Select Xcode Version
+        run: |
+          echo "Swift version:"
+          swift --version
+          xcodebuild -version
+
+      - name: Build Swift Package (Release)
+        run: swift build -c release
+
+      - name: Package macOS App Bundle
+        run: ./scripts/build-app.sh
+
+      - name: Validate App Bundle & Signature
+        run: |
+          test -d "build/OpenArcMouse.app"
+          test -f "build/OpenArcMouse.app/Contents/MacOS/OpenArcMouse"
+          test -f "build/OpenArcMouse.app/Contents/Info.plist"
+          codesign -vvv --deep --strict build/OpenArcMouse.app
+          plutil -p build/OpenArcMouse.app/Contents/Info.plist

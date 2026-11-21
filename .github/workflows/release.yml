@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. 0.1.0)'
+        required: true
+        default: '0.1.0'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build & Publish Release
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Determine Version
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            RAW_VER="${{ github.event.inputs.version }}"
+          else
+            RAW_VER="${GITHUB_REF_NAME}"
+          fi
+          # Strip leading 'v' if present
+          CLEAN_VER="${RAW_VER#v}"
+          echo "RELEASE_VERSION=${CLEAN_VER}" >> $GITHUB_ENV
+          echo "TAG_NAME=v${CLEAN_VER}" >> $GITHUB_ENV
+          echo "Resolved version: ${CLEAN_VER} (Tag: v${CLEAN_VER})"
+
+      - name: Build and Package OpenArcMouse.app
+        run: |
+          VERSION="${{ env.RELEASE_VERSION }}" ./scripts/build-app.sh
+
+      - name: Verify App Bundle & Signature
+        run: |
+          codesign -vvv --deep --strict build/OpenArcMouse.app
+          plutil -p build/OpenArcMouse.app/Contents/Info.plist
+
+      - name: Create Release Archive (.zip)
+        run: |
+          ZIP_NAME="OpenArcMouse-v${{ env.RELEASE_VERSION }}.zip"
+          ditto -c -k --sequesterRsrc --keepParent build/OpenArcMouse.app "${ZIP_NAME}"
+          shasum -a 256 "${ZIP_NAME}" > "${ZIP_NAME}.sha256"
+          ls -lh "${ZIP_NAME}"*
+
+      - name: Create GitHub Release & Upload Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: "OpenArcMouse v${{ env.RELEASE_VERSION }}"
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+          files: |
+            OpenArcMouse-v${{ env.RELEASE_VERSION }}.zip
+            OpenArcMouse-v${{ env.RELEASE_VERSION }}.zip.sha256
